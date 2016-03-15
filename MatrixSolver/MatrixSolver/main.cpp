@@ -5,20 +5,18 @@
 
 using namespace std;
 
-//Ввод матрицы в систему
 void input_matrix(float m[3][3], char* text) {	
 	system("CLS");
 	for (int i = 0; i < 3; i++) {
-		cout << "Введите " << i + 1 << " строку матрицы " << text << ": ";
+		cout << "Enter " << i + 1 << " string of matrix " << text << ": ";
 		for (int j = 0; j < 3; j++) {
 			cin >> m[i][j];
 		}
 	}
 }
 
-//Вывод матрицы на консоль
 void out_matrix(float m[3][3], char* text) {	
-	cout << "Матирица "<< text << ":";
+	cout << "Matrix "<< text << ":";
 	cout << endl;
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -29,7 +27,6 @@ void out_matrix(float m[3][3], char* text) {
 	cout << endl;
 }
 
-//Перестановка матриц местами
 void swap_matrix(float m1[3][3], float m2[3][3]) {
 	float buffer;
 	for (int i = 0; i < 3; i++) {
@@ -41,7 +38,6 @@ void swap_matrix(float m1[3][3], float m2[3][3]) {
 	}
 }
 
-//Умножение матрицы на число А*с
 void multiply_number(float m[3][3], float num) {	
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -50,7 +46,6 @@ void multiply_number(float m[3][3], float num) {
 	}
 }
 
-//Сложение матриц А+В
 void addtition_matrix(float a[3][3], float b[3][3], float c[3][3]) {	
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -59,7 +54,6 @@ void addtition_matrix(float a[3][3], float b[3][3], float c[3][3]) {
 	}
 }
 
-//Вычитание матриц А-В
 void subtraction_matrix(float a[3][3], float b[3][3], float c[3][3]) {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -68,7 +62,6 @@ void subtraction_matrix(float a[3][3], float b[3][3], float c[3][3]) {
 	}
 }
 
-//Транспонирование матриц
 void transposition_matrix(float m[3][3]) {
 	float buffer = 0;
 	for (int i = 0; i < 3; i++) {
@@ -80,7 +73,6 @@ void transposition_matrix(float m[3][3]) {
 	}
 }
 
-//Умножение матриц А*В
 void multiply_matrix(float a[3][3], float b[3][3], float c[3][3]) {
 	for (int i = 0; i < 3; i++){
 		for (int j = 0; j < 3; j++) {
@@ -89,7 +81,7 @@ void multiply_matrix(float a[3][3], float b[3][3], float c[3][3]) {
 	}
 }
 
-//Определитель матрицы //debug
+//need debug
 float determinant_matrix(float m[3][3], int size) {
 	float p[3][3];
 	float det = 0;
@@ -124,7 +116,6 @@ float determinant_matrix(float m[3][3], int size) {
 	return det;
 }
 
-//Обратная матрица
 void inverse_matrix(float m[3][3]) {
 	float e[3][3] = { {1, 0, 0} ,
 					  {0, 1, 0} , 
@@ -155,29 +146,35 @@ void inverse_matrix(float m[3][3]) {
 	swap_matrix(m, e);
 }
 
-//Вывод текста меню на консоль
 void menu() {
-	cout << "Универсальный матричный калькулятор" << endl << endl;
+	cout << "Universal matrix calculator" << endl << endl;
 
-	cout << "1.Задание матрицы А" << endl;
-	cout << "2.Задание матрицы В" << endl;
-	cout << "3.Задание матрицы С" << endl;
-	cout << "4.Задание числа 'с'" << endl << endl;
+	cout << "INPUT operations:" << endl;
+	cout << "1.Enter A matrix" << endl;
+	cout << "2.Enter B matrix" << endl;
+	cout << "3.Enter C matrix" << endl;
+	cout << "4.Enter number 'c'" << endl << endl;
 
-	cout << "5.Умножение матрицы на число 'с'" << endl;
-	cout << "6.Сложение матриц А+В" << endl;
-	cout << "7.Вычитание матриц A-B" << endl;
-	cout << "8.Транспонирование" << endl;
-	cout << "9.Умножение матриц A*B=C" << endl;
-	cout << "10.Нахождение определителя" << endl;
-	cout << "11.Обратная матрица" << endl << endl;
+	cout << "Actions:" << endl;
+	cout << "5.Multiply matrix on number 'c'" << endl;
+	cout << "6.Additition matrix A+B" << endl;
+	cout << "7.Substraction matrix A-B" << endl;
+	cout << "8.Transpose matrix" << endl;
+	cout << "9.Myltiply matrixes A*B=C" << endl;
+	cout << "10.Search for determinant" << endl;
+	cout << "11.Inverse matrix" << endl << endl;
 
-	cout << "12.Выход" << endl;
+	cout << "Additional:" << endl;
+	cout << "12.Show matrix" << endl;
+	cout << "13.Swap matrix" << endl;
+	cout << "14.Reset to default" << endl << endl;
+	
+
+	cout << "15.Exit" << endl;
 
 	cout << endl << endl;
 }
 
-//Матрица по умолчанию
 void default_matrix(float m[3][3]) { 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -188,84 +185,79 @@ void default_matrix(float m[3][3]) {
 }
 
 int main() {
-	setlocale(LC_ALL,"Russian");
-
 	float a[3][3], b[3][3], c[3][3], num = 0;
 	default_matrix(a); default_matrix(b); default_matrix(c);
 	int swt = 0;
 	char m;
 
-	while (swt != 12) {
+	while (swt != 15) {
 		system("CLS");
 		menu();
-		cout << "Выберите действие: ";
+		cout << "Choose action: ";
 		cin >> swt;
 
 		switch (swt) {
 		case 1:
 			system("CLS");
-			cout << "Ввод матрицы А" << endl << endl;
+			cout << "Input matrix A" << endl << endl;
 			input_matrix(a, "A");
 			system("Pause");
 			break;
 
 		case 2:
 			system("CLS");
-			cout << "Ввод матрицы B" << endl << endl;
+			cout << "Input matrix B" << endl << endl;
 			input_matrix(b, "B");
 			system("Pause");
 			break;
 
 		case 3:
 			system("CLS");
-			cout << "Ввод матрицы C" << endl << endl;
+			cout << "Input matrix C" << endl << endl;
 			input_matrix(c, "C");
 			system("Pause");
 			break;
 
 		case 4:
 			system("CLS");
-			cout << "Ввод числа 'c'" << endl << endl;
-			cout << "Введите число: ";
+			cout << "Input number 'c'" << endl << endl;
+			cout << "Enter a number: ";
 			cin >> num;
 			system("Pause");
 			break;
 
 		case 5:
 			system("CLS");
-			cout << "Операция умножения на число 'c'" << endl << endl;
-			cout << "Укажите матрицу (A, B, C): ";
+			cout << "Operation MULTIPLY on number 'c'" << endl << endl;
+			cout << "Switch matrix (A, B, C): ";
 			cin >> m;
 			cout << endl;
-
+			cout << "Initial parameters:" << endl << endl;
 			if (m == 'A' || m == 'a' || m == 'А' || m == 'а' || m == 'Ф' || m == 'ф' || m == 'F' || m == 'f' || m == '1') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(a, "A"); 
-				cout << "Число 'с': " << num << endl << endl;
+				cout << "Number 'c': " << num << endl << endl;
 
 				multiply_number(a, num);
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				out_matrix(a, "A");
 			}
 			else if (m == 'В' || m == 'в' || m == 'D' || m == 'd' || m == '<' || m == ',' || m == 'И' || m == 'и' || m == 'Б' || m == 'б' || m == 'B' || m == 'b' || m == '2') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(b, "B");
-				cout << "Число 'с': " << num << endl << endl;
+				cout << "Number 'c': " << num << endl << endl;
 
 				multiply_number(b, num);
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				out_matrix(b, "B");
 			}
 			else if (m == 'С' || m == 'с' || m == 'C' || m == 'c' || m == '3') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(c, "C");
-				cout << "Число 'с': " << num << endl << endl;
+				cout << "Number 'c': " << num << endl << endl;
 
 				multiply_number(c, num);
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				out_matrix(c, "C");
 			}
 			system("Pause");
@@ -273,63 +265,61 @@ int main() {
 
 		case 6:
 			system("CLS");
-			cout << "Операция сложения матриц A+B" << endl << endl;
-			cout << "Начальные параметры" << endl << endl;
+			cout << "Operation ADDITION matrixes A+B" << endl << endl;
+			cout << "Initial parameters:" << endl << endl;
 			out_matrix(a, "A");
 			out_matrix(b, "B");
 
 			addtition_matrix(a, b, c);
 			
-			cout << endl << "Результат" << endl << endl;
+			cout << endl << "Result:" << endl << endl;
 			out_matrix(c, "C");
 			system("Pause");
 			break;
 
 		case 7:
 			system("CLS");
-			cout << "Операция вычитания матриц A-B" << endl << endl;
-			cout << "Начальные параметры" << endl << endl;
+			cout << "Operation SUBSTRACTION matrixes A-B" << endl << endl;
+			cout << "Initial parameters:" << endl << endl;
 			out_matrix(a, "A");
 			out_matrix(b, "B");
 
 			subtraction_matrix(a, b, c);
 			
-			cout << endl << "Результат" << endl << endl;
+			cout << endl << "Result:" << endl << endl;
 			out_matrix(c, "C");
 			system("Pause");
 			break;
 
 		case 8:
 			system("CLS");
-			cout << "Операция транспонирования матриц" << endl << endl;
-			cout << "Укажите матрицу (A, B, C): ";
+			cout << "Operation transpose matrix" << endl << endl;
+			cout << "Switch matrix (A, B, C): ";
 			cin >> m;
 			cout << endl;
+			cout << "Initial parameters:" << endl << endl;
 			if (m == 'A' || m == 'a' || m == 'А' || m == 'а' || m == 'Ф' || m == 'ф' || m == 'F' || m == 'f' || m == '1') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(a, "A");
 				
 				transposition_matrix(a);
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				out_matrix(a, "A");
 			}
 			else if (m == 'В' || m == 'в' || m == 'D' || m == 'd' || m == '<' || m == ',' || m == 'И' || m == 'и' || m == 'Б' || m == 'б' || m == 'B' || m == 'b' || m == '2') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(b, "B");
 
 				transposition_matrix(b);
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				out_matrix(b, "B");
 			}
 			else if (m == 'С' || m == 'с' || m == 'C' || m == 'c' || m == '3') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(c, "C");
 
 				transposition_matrix(c);
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				out_matrix(c, "C");
 			}
 			system("Pause");
@@ -337,45 +327,43 @@ int main() {
 
 		case 9: 
 			system("CLS");
-			cout << "Операция умножения матриц" << endl << endl;
-			cout << "Начальные параметры" << endl << endl;
+			cout << "Operation myltiply matrixes" << endl << endl;
+			cout << "Initial parameters:" << endl << endl;
 			out_matrix(a, "A");
 			out_matrix(b, "B");
 
 			multiply_matrix(a,b,c);
 
-			cout << endl << "Результат" << endl << endl;
+			cout << endl << "Result:" << endl << endl;
 			out_matrix(c, "C");
 			system("Pause");
 			break;
 
 		case 10: 
 			system("CLS");
-			cout << "Операция нахождения определителя матриц" << endl << endl;
-			cout << "Укажите матрицу (A, B, C): ";
+			cout << "Operation searching DETERMINANT of matrix" << endl << endl;
+			cout << "Switch matrix (A, B, C): ";
 			cin >> m;
 			cout << endl;
+			cout << "Initial parameters:" << endl << endl;
 			if (m == 'A' || m == 'a' || m == 'А' || m == 'а' || m == 'Ф' || m == 'ф' || m == 'F' || m == 'f' || m == '1') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(a, "A");
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				cout << "det[A] = " << determinant_matrix(a,3) << endl << endl;
 				out_matrix(a, "A");
 			}
 			else if (m == 'В' || m == 'в' || m == 'D' || m == 'd' || m == '<' || m == ',' || m == 'И' || m == 'и' || m == 'Б' || m == 'б' || m == 'B' || m == 'b' || m == '2') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(b, "B");
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				cout << "det[B] = " << determinant_matrix(b,3) << endl << endl;
 				out_matrix(b, "B");
 			}
 			else if (m == 'С' || m == 'с' || m == 'C' || m == 'c' || m == '3') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(c, "C");
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				cout << "det[C] = " << determinant_matrix(c,3) << endl << endl;
 				out_matrix(c, "C");
 			}
@@ -384,35 +372,75 @@ int main() {
 
 		case 11: 
 			system("CLS");
-			cout << "Операция нахождения обратной матрицы" << endl << endl;
-			cout << "Укажите матрицу (A, B, C): ";
+			cout << "Operation searching INVERSE matrix" << endl << endl;
+			cout << "Switch matrix (A, B, C): ";
 			cin >> m;
 			cout << endl;
+			cout << "Initial parameters:" << endl << endl;
 			if (m == 'A' || m == 'a' || m == 'А' || m == 'а' || m == 'Ф' || m == 'ф' || m == 'F' || m == 'f' || m == '1') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(a, "A");
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				inverse_matrix(a);
 
 				out_matrix(a, "A(-1)");
 			}
 			else if (m == 'В' || m == 'в' || m == 'D' || m == 'd' || m == '<' || m == ',' || m == 'И' || m == 'и' || m == 'Б' || m == 'б' || m == 'B' || m == 'b' || m == '2') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(b, "B");
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				inverse_matrix(b);
 				out_matrix(b, "B(-1)");
 			}
 			else if (m == 'С' || m == 'с' || m == 'C' || m == 'c' || m == '3') {
-				cout << "Начальные параметры" << endl << endl;
 				out_matrix(c, "C");
 
-				cout << endl << "Результат" << endl << endl;
+				cout << endl << "Result:" << endl << endl;
 				inverse_matrix(c);
 				out_matrix(c, "C(-1)");
 			}
+			system("Pause");
+			break;
+
+		case 12:
+			system("CLS");
+			out_matrix(a, "A");
+			out_matrix(b, "B");
+			out_matrix(c, "C");
+			system("Pause");
+			break;
+
+		case 13:
+			system("CLS");
+			cout << "Operation SWAP matrix" << endl << endl;
+
+			cout << "1.A <-> B" << endl;
+			cout << "2.A <-> C" << endl;
+			cout << "3.B <-> C" << endl;
+			cout << "4.Exit" << endl << endl;
+
+			cout << "Choose action: " << endl;
+			cin >> m;
+			cout << endl;
+			if     (m == '1')	swap_matrix(a, b);
+			else if(m == '2')	swap_matrix(a, c);
+			else if(m == '3')	swap_matrix(b, c);
+			
+			system("Pause");
+			break;
+
+		case 14:
+			system("CLS");
+			cout << "Operation RESET to default" << endl << endl;
+			cout << "Switch matrix (A, B, C): ";
+			cin >> m;
+			cout << endl;
+			if		(m == 'A' || m == 'a' || m == 'А' || m == 'а' || m == 'Ф' 
+					|| m == 'ф' || m == 'F' || m == 'f' || m == '1')										default_matrix(a);
+			else if (m == 'В' || m == 'в' || m == 'D' || m == 'd' || m == '<' || m == ',' 
+					|| m == 'И' || m == 'и' || m == 'Б' || m == 'б' || m == 'B' || m == 'b' || m == '2') 	default_matrix(b);
+			else if (m == 'С' || m == 'с' || m == 'C' || m == 'c' || m == '3') 								default_matrix(c);
+			
 			system("Pause");
 			break;
 

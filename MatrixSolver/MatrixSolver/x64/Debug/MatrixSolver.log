@@ -1,2 +1,2 @@
 ﻿  main.cpp
-LINK : fatal error LNK1561: entry point must be defined
+  MatrixSolver.vcxproj -> D:\Мои документы\Visual Studio 2015\GitHub\Matrix-Solver-in-C-\MatrixSolver\x64\Debug\MatrixSolver.exe

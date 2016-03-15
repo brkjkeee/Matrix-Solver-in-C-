@@ -16,5 +16,4 @@ public:
 		}
 		for (int i = 0; i < 3; i++)	marr[i][i] = 1;
 	}
-
 };
