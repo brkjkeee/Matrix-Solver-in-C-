@@ -119,8 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="fraction.cpp" />
-    <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="fract_input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fraction.h" />
