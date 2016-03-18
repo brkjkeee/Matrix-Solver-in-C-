@@ -138,29 +138,64 @@ void subtraction_matrix(matrix &m1, matrix &m2, matrix &m3) {
 	}
 }
 
+void transposition_matrix(matrix &m) {
+	unsigned int stringNum = m.volume / _msize(m.field[0]);
+	unsigned int rowNum = _msize(m.field[0]) / sizeof(float);
+
+	matrix e;
+	init_matrix(e);
+
+	for (unsigned int i = 0; i < rowNum; i++) {
+		for (unsigned int j = 0; j < stringNum - 1; j++) {
+			e.field[i] = (float*)realloc(e.field[i], _msize(e.field[i]) + sizeof(float));
+		}
+		e.volume += _msize(e.field[i]);
+		e.field = (float**)realloc(e.field, _msize(e.field) * sizeof(float*));
+		e.field[i + 1] = (float*)malloc(sizeof(float));
+	}
+
+	for (unsigned int i = 0; i < rowNum; i++) {
+		for (unsigned int j = 0; j < stringNum; j++) {
+			e.field[i][j] = m.field[j][i];
+		}
+	}
+
+	swap_matrix(e, m);
+	free_matrix(e);
+}
+
+void multiply_matrix(matrix &m1, matrix &m2, matrix &m3) {
+	unsigned int stringNum = m1.volume / _msize(m1.field[0]);
+	unsigned int rowNum = _msize(m2.field[0]) / sizeof(float);
+
+	unsigned int rowNumM1 = _msize(m1.field[0]) / sizeof(float);
+
+	if (stringNum == rowNum) {			//strings A equials rows B
+
+		free_matrix(m3);
+		init_matrix(m3);
+		for (unsigned int i = 0; i < stringNum; i++) {
+			for (unsigned int j = 0; j < rowNum - 1; j++) {
+				m3.field[i] = (float*)realloc(m3.field[i], _msize(m3.field[i]) + sizeof(float));
+			}
+			m3.volume += _msize(m3.field[i]);
+			m3.field = (float**)realloc(m3.field, _msize(m3.field) * sizeof(float*));
+			m3.field[i + 1] = (float*)malloc(sizeof(float));
+		}
+
+		float summ = 0;
+		for (unsigned int i = 0; i < stringNum; i++) {
+			for (unsigned int j = 0; j < rowNum; j++) {
+				summ = 0;
+				for (unsigned int e = 0; e < rowNumM1; e++)	summ += m1.field[i][e] * m2.field[e][j];
+				m3.field[i][j] = summ;
+			}
+		}
+	}
+}
+
 // not realised functions
 
-////need reallocation, cose 2x3 does not transpose to 3x2
-//void transposition_matrix(float **m, int size) {
-//	float buffer = 0;
-//	for (int i = 0; i < size; i++) {
-//		for (int j = 0; j < 1 + i; j++) {
-//			buffer = m[j][i];
-//			m[j][i] = m[i][j];
-//			m[i][j] = buffer;
-//		}
-//	}
-//}
-//
-////need reallocation: row(a)xcol(b) = row&col(c). (1 1 1)x(1 1 1)t = (1)
-//void multiply_matrix(float **a, float **b, float **c, int size) {
-//	for (int i = 0; i < size; i++) {
-//		for (int j = 0; j < size; j++) {
-//			c[i][j] = a[i][0] * b[0][j] + a[i][1] * b[1][j] + a[i][2] * b[2][j];
-//		}
-//	}
-//}
-//
 ////need debug
 //float determinant_matrix(float **m, int size) {
 //	//need dynamic float p[size][size];

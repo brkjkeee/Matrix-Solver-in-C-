@@ -117,7 +117,7 @@ int main() {
 			out_matrix(a);
 			out_matrix(b);
 			if ((a.volume / _msize(a.field[0]) == b.volume / _msize(b.field[0]))					//strings A equials B
-				&& (_msize(b.field[0]) / sizeof(float) == _msize(b.field[0]) / sizeof(float))) {	//rows A equials B
+				&& (_msize(a.field[0]) / sizeof(float) == _msize(b.field[0]) / sizeof(float))) {	//rows A equials B
 				addtition_matrix(a, b, c);
 				cout << endl << "Result:" << endl << endl;
 				out_matrix(c);
@@ -133,7 +133,7 @@ int main() {
 			out_matrix(a);
 			out_matrix(b);
 			if ((a.volume / _msize(a.field[0]) == b.volume / _msize(b.field[0]))					//strings A equials B
-				&& (_msize(b.field[0]) / sizeof(float) == _msize(b.field[0]) / sizeof(float))) {	//rows A equials B
+				&& (_msize(a.field[0]) / sizeof(float) == _msize(b.field[0]) / sizeof(float))) {	//rows A equials B
 				subtraction_matrix(a, b, c);
 				cout << endl << "Result:" << endl << endl;
 				out_matrix(c);
@@ -151,25 +151,19 @@ int main() {
 			cout << "Initial parameters:" << endl << endl;
 			if (m == a.name || m == '1') {
 				out_matrix(a);
-
-				//transposition_matrix(a);
-
+				transposition_matrix(a);
 				cout << endl << "Result:" << endl << endl;
 				out_matrix(a);
 			}
 			else if (m == b.name || m == '2') {
 				out_matrix(b);
-
-				//transposition_matrix(b);
-
+				transposition_matrix(b);
 				cout << endl << "Result:" << endl << endl;
 				out_matrix(b);
 			}
 			else if (m == c.name || m == '3') {
 				out_matrix(c);
-
-				//transposition_matrix(c);
-
+				transposition_matrix(c);
 				cout << endl << "Result:" << endl << endl;
 				out_matrix(c);
 			}
@@ -182,9 +176,7 @@ int main() {
 			cout << "Initial parameters:" << endl << endl;
 			out_matrix(a);
 			out_matrix(b);
-
-			//multiply_matrix(a,b,c);
-
+			multiply_matrix(a,b,c);
 			cout << endl << "Result:" << endl << endl;
 			out_matrix(c);
 			system("Pause");
