@@ -13,15 +13,15 @@ void init_matrix(matrix &m) {
 }
 
 void free_matrix(matrix &m) {
-	int stringNum = m.volume / _msize(m.field[0]);
-	for (int i = 0; i < stringNum; i++)	free(m.field[i]);
+	unsigned int stringNum = m.volume / _msize(m.field[0]);
+	for (unsigned int i = 0; i < stringNum; i++)	free(m.field[i]);
 	free(m.field);
 }
 
 void input_matrix(matrix &m) {
 	free_matrix(m);
 	init_matrix(m);
-	int i = 0;
+	unsigned int i = 0;
 	cout << "Input matrix " << m.name << endl << endl;
 	do {
 		cout << "Enter " << i + 1 << " string of matrix " << m.name << ": ";
@@ -42,8 +42,8 @@ void default_matrix(matrix &m) {
 	const int SIZE = 3;
 	init_matrix(m);
 
-	for (int i = 0; i < SIZE; i++) {
-		for (int j = 0; j < SIZE - 1; j++) {
+	for (unsigned int i = 0; i < SIZE; i++) {
+		for (unsigned int j = 0; j < SIZE - 1; j++) {
 			m.field[i] = (float*)realloc(m.field[i], _msize(m.field[i]) + sizeof(float));
 		}
 		m.volume += _msize(m.field[i]);
@@ -51,64 +51,95 @@ void default_matrix(matrix &m) {
 		m.field[i + 1] = (float*)malloc(sizeof(float));
 	}
 
-	for (int i = 0; i < SIZE; i++) {
-		for (int j = 0; j < SIZE; j++) {
+	for (unsigned int i = 0; i < SIZE; i++) {
+		for (unsigned int j = 0; j < SIZE; j++) {
 			m.field[i][j] = 0;
 		}
 	}
-	for (int i = 0; i < SIZE; i++)	m.field[i][i] = 1;
+	for (unsigned int i = 0; i < SIZE; i++)	m.field[i][i] = 1;
 }
 
 void out_matrix(matrix &m) {
 	cout << "Matrix " << m.name << ":" << endl;
-	int stringNum = m.volume / _msize(m.field[0]);
-	for (int i = 0; i < stringNum; i++) {
-		for (int j = _msize(m.field[i]) / sizeof(float); j > 0; j--) {
-			cout << m.field[i][_msize(m.field[i]) / sizeof(float) - j] << " ";
+	unsigned int stringNum = m.volume / _msize(m.field[0]);
+	unsigned int rowNum = _msize(m.field[0]) / sizeof(float);
+	for (unsigned int i = 0; i < stringNum; i++) {
+		for (unsigned int j = 0; j < rowNum; j++) {
+			cout << m.field[i][j] << " ";
 		}
 		cout << endl;
 	}
 	cout << endl;
 }
 
-//not realised functions
+void swap_matrix(matrix &m1, matrix &m2) {
+	float **bufferField = m1.field;
+	m1.field = m2.field;
+	m2.field = bufferField;
 
-////need using another method, maybe swap by name
-//void swap_matrix(float **m1, float **m2, int size) {
-//	float buffer;
-//	for (int i = 0; i < 3; i++) {
-//		for (int j = 0; j < 3; j++) {
-//			buffer = m1[i][j];
-//			m1[i][j] = m2[i][j];
-//			m2[i][j] = buffer;
-//		}
-//	}
-//}
-//
-//void multiply_number(float **m, int size, float num) {
-//	for (int i = 0; i < size; i++) {
-//		for (int j = 0; j < size; j++) {
-//			m[i][j] = m[i][j] * num;
-//		}
-//	}
-//}
-//
-//void addtition_matrix(float **a, float **b, float **c, int size) {
-//	for (int i = 0; i < size; i++) {
-//		for (int j = 0; j < size; j++) {
-//			c[i][j] = a[i][j] + b[i][j];
-//		}
-//	}
-//}
-//
-//void subtraction_matrix(float **a, float **b, float **c, int size) {
-//	for (int i = 0; i < size; i++) {
-//		for (int j = 0; j < size; j++) {
-//			c[i][j] = a[i][j] - b[i][j];
-//		}
-//	}
-//}
-//
+	unsigned int bufferVol = m1.volume;
+	m1.volume = m2.volume;
+	m2.volume = bufferVol;
+}
+
+void multiply_number(matrix &m, float num) {
+	unsigned int stringNum = m.volume / _msize(m.field[0]);
+	unsigned int rowNum = _msize(m.field[0]) / sizeof(float);
+	for (unsigned int i = 0; i < stringNum; i++) {
+		for (unsigned int j = 0; j < rowNum; j++) {
+			m.field[i][j] = m.field[i][j] * num;
+		}
+	}
+}
+
+void addtition_matrix(matrix &m1, matrix &m2, matrix &m3) {
+	unsigned int stringNum = m1.volume / _msize(m1.field[0]);
+	unsigned int rowNum = _msize(m1.field[0]) / sizeof(float);
+
+	free_matrix(m3);
+	init_matrix(m3);
+
+	for (unsigned int i = 0; i < stringNum; i++) {
+		for (unsigned int j = 0; j < rowNum - 1; j++) {
+			m3.field[i] = (float*)realloc(m3.field[i], _msize(m3.field[i]) + sizeof(float));
+		}
+		m3.volume += _msize(m3.field[i]);
+		m3.field = (float**)realloc(m3.field, _msize(m3.field) * sizeof(float*));
+		m3.field[i + 1] = (float*)malloc(sizeof(float));
+	}
+
+	for (unsigned int i = 0; i < stringNum; i++) {
+		for (unsigned int j = 0; j < rowNum; j++) {
+			m3.field[i][j] = m1.field[i][j] + m2.field[i][j];
+		}
+	}
+}
+
+void subtraction_matrix(matrix &m1, matrix &m2, matrix &m3) {
+	unsigned int stringNum = m1.volume / _msize(m1.field[0]);
+	unsigned int rowNum = _msize(m1.field[0]) / sizeof(float);
+
+	free_matrix(m3);
+	init_matrix(m3);
+
+	for (unsigned int i = 0; i < stringNum; i++) {
+		for (unsigned int j = 0; j < rowNum - 1; j++) {
+			m3.field[i] = (float*)realloc(m3.field[i], _msize(m3.field[i]) + sizeof(float));
+		}
+		m3.volume += _msize(m3.field[i]);
+		m3.field = (float**)realloc(m3.field, _msize(m3.field) * sizeof(float*));
+		m3.field[i + 1] = (float*)malloc(sizeof(float));
+	}
+
+	for (unsigned int i = 0; i < stringNum; i++) {
+		for (unsigned int j = 0; j < rowNum; j++) {
+			m3.field[i][j] = m1.field[i][j] - m2.field[i][j];
+		}
+	}
+}
+
+// not realised functions
+
 ////need reallocation, cose 2x3 does not transpose to 3x2
 //void transposition_matrix(float **m, int size) {
 //	float buffer = 0;

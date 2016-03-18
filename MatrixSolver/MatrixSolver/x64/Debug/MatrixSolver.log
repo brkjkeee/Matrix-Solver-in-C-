@@ -1,2 +1,3 @@
 ﻿  main.cpp
+d:\мои документы\visual studio 2015\github\matrix-solver-in-c-\matrixsolver\matrixsolver\matrix.h(5): warning C4091: 'typedef ': ignored on left of 'matrix' when no variable is declared
   MatrixSolver.vcxproj -> D:\Мои документы\Visual Studio 2015\GitHub\Matrix-Solver-in-C-\MatrixSolver\x64\Debug\MatrixSolver.exe
