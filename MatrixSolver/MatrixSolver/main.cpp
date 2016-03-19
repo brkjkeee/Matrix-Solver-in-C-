@@ -21,16 +21,15 @@ void menu() {
 	cout << "7.Substraction matrix A-B" << endl;
 	cout << "8.Transpose matrix" << endl;
 	cout << "9.Myltiply matrixes A*B=C" << endl;
-	cout << "10.Search for determinant" << endl;
-	cout << "11.Inverse matrix" << endl << endl;
+	cout << "10.Inverse matrix" << endl << endl;
 
 	cout << "Additional:" << endl;
-	cout << "12.Show matrix" << endl;
-	cout << "13.Swap matrix" << endl;
-	cout << "14.Reset to default" << endl << endl;
+	cout << "11.Show matrix details" << endl;
+	cout << "12.Swap matrix" << endl;
+	cout << "13.Reset to default" << endl << endl;
 
 
-	cout << "15.Exit" << endl;
+	cout << "14.Exit" << endl;
 
 	cout << endl;
 }
@@ -45,8 +44,9 @@ int main() {
 	float num = 0;
 	unsigned int swt = 0;
 	char m;
+	cout.precision(0.00001);
 
-	while (swt != 15) {
+	while (swt != 14) {
 		system("CLS");
 		menu();
 		cout << "Choose action: ";
@@ -184,37 +184,6 @@ int main() {
 
 		case 10:
 			system("CLS");
-			cout << "Operation searching DETERMINANT of matrix" << endl << endl;
-			cout << "Switch matrix (" << a.name << ", " << b.name << ", " << c.name << "): ";
-			cin >> m;
-			cout << endl;
-			cout << "Initial parameters:" << endl << endl;
-			if (m == a.name || m == '1') {
-				out_matrix(a);
-
-				cout << endl << "Result:" << endl << endl;
-				//cout << "det[A] = " << determinant_matrix(a,3) << endl << endl;
-				out_matrix(a);
-			}
-			else if (m == b.name || m == '2') {
-				out_matrix(b);
-
-				cout << endl << "Result:" << endl << endl;
-				//cout << "det[B] = " << determinant_matrix(b,3) << endl << endl;
-				out_matrix(b);
-			}
-			else if (m == c.name || m == '3') {
-				out_matrix(c);
-
-				cout << endl << "Result:" << endl << endl;
-				//cout << "det[C] = " << determinant_matrix(c,3) << endl << endl;
-				out_matrix(c);
-			}
-			system("Pause");
-			break;
-
-		case 11:
-			system("CLS");
 			cout << "Operation searching INVERSE matrix" << endl << endl;
 			cout << "Switch matrix (" << a.name << ", " << b.name << ", " << c.name << "): ";
 			cin >> m;
@@ -245,15 +214,23 @@ int main() {
 			system("Pause");
 			break;
 
-		case 12:
+		case 11:
 			system("CLS");
 			out_matrix(a);
+			if ((a.volume / _msize(a.field[0])) == (_msize(a.field[0]) / sizeof(float)))
+				cout << "det[" << a.name << "] = " << a.det << endl << endl;
+			
 			out_matrix(b);
+			if ((b.volume / _msize(b.field[0])) == (_msize(b.field[0]) / sizeof(float)))
+				cout << "det[" << b.name << "] = " << b.det << endl << endl;
+
 			out_matrix(c);
+			if ((c.volume / _msize(c.field[0])) == (_msize(c.field[0]) / sizeof(float)))
+				cout << "det[" << c.name << "] = " << c.det << endl << endl;
 			system("Pause");
 			break;
 
-		case 13:
+		case 12:
 			system("CLS");
 			cout << "Operation SWAP matrix" << endl << endl;
 
@@ -272,7 +249,7 @@ int main() {
 			system("Pause");
 			break;
 
-		case 14:
+		case 13:
 			system("CLS");
 			cout << "Operation RESET to default" << endl << endl;
 			cout << "Switch matrix (" << a.name << ", " << b.name << ", " << c.name << "): ";

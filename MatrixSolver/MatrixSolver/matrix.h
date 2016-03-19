@@ -1,6 +1,7 @@
 typedef struct matrix {
 	float **field;
 	unsigned int volume;
+	double det;
 	char name;
 };
 
@@ -15,11 +16,6 @@ void addtition_matrix(matrix &m1, matrix &m2, matrix &m3);
 void subtraction_matrix(matrix &m1, matrix &m2, matrix &m3);
 void transposition_matrix(matrix &m);
 void multiply_matrix(matrix &m1, matrix &m2, matrix &m3);
+double determinant_matrix(matrix &m);
 
-//not realised functions
-
-////need debug
-//float determinant_matrix(matrix &m);
-//
-////only works with 3x3
 //void inverse_matrix(matrix &m);
